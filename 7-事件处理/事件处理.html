@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<!-- View -->
+<div id="app">
+  <h1>hello {{name}}</h1>
+  <button v-on:click="alertFunc">点我提示</button><br/>
+  <button @click="alertFunc2(66,$event)">点我提示</button><br/>
+
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+  // 阻止vue在启动时提示生产错误
+  Vue.config.productionTip = false;
+
+  /**
+   * 事件处理
+   * 1.v-on:xxx 或 @xxx xxx是事件名称
+   * 2.事件的回调需要配置methods 最终会在vm上
+   * 3.methods 中配置的函数，不要用箭头函数
+   *
+   *
+   * */
+
+  /**
+   * 创建vue   ViewModel
+   * */
+  const  vm  = new Vue({
+    el:'#app',
+    data:function (){  // Model
+      return{
+        name:"张三"
+      }
+    },
+    methods:{
+      alertFunc(){
+        alert("你好")
+      },
+      alertFunc2(value,event){
+        alert(value)
+        alert(event)
+      }
+    }
+  })
+
+
+
+</script>

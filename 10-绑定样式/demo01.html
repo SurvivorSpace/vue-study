@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>绑定样式</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<style>
+  .base{
+    background-color: red;
+    width: 200px;
+    height: 500px;
+  }
+
+  .change{
+    background-color: aqua;
+
+  }
+
+  .change2{
+    background-color: chocolate;
+
+  }
+
+</style>
+<body>
+
+<div id="app">
+  <!-- 绑定class样式 字符串写法 -->
+  <div class="base" :class="mood" @click="changeColor">{{name}}</div>
+
+  <!-- 数组写法 -->
+  <div class="base" :class="arr" >{{name}}</div>
+
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+    Vue.config.productionTip = false;
+
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            name:'张三',
+          mood:'yellow',
+          arr:['change','change2']
+        },
+        methods: {
+          changeColor(){
+            this.mood = 'change';
+          }
+        }
+    })
+
+
+    /**
+     *   绑定样式
+     *
+
+     * */
+
+
+</script>

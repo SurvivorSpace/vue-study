@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>监视属性</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    你是{{info}}
+    <br>
+    <button @click="change">切换</button>
+    <hr/>
+    <h3>a的值：{{num.a}}</h3>
+    <button @click="add">点击a增加</button>
+    <hr/>
+    <h3>b的值：{{num.b}}</h3>
+    <button @click="num.b++">点击a增加</button>
+
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+    // 阻止vue在启动时提示生产错误
+    Vue.config.productionTip = false;
+    /**
+     * 监视的简写
+     *
+     * */
+
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            isSex: true,
+            num: {a: 1, b: 1}
+        },
+        methods: {
+            change() {
+                this.isSex = !this.isSex;
+            },
+            add() {
+                this.num.a++;
+            }
+        },
+        computed: {
+            info() {
+                return this.isSex ? '男' : '女'
+            }
+        },
+        // 第一种写法
+        watch: {
+            // 正常写法
+            // isSex:{
+            //   handler(newValue,oldValue){
+            //     console.log("newValue",newValue)
+            //     console.log("oldValue",oldValue)
+            //   }
+            // },
+
+            //简写
+          isSex(newValue,oldValue) {
+                console.log("newValue", newValue)
+                console.log("oldValue", oldValue)
+            }
+        }
+
+    })
+
+
+    // // 正常写法
+    // vm.$watch('info',{
+    //   //当isSex发生改变时调用
+    //   immediate:true,   //一开始就执行handler
+    //   handler(newValue,oldValue){
+    //     console.log("info",newValue)
+    //     console.log("info",oldValue)
+    //   }
+    //})
+    // 简写写法
+    vm.$watch('info',function (newValue,oldValue){
+      console.log("$watch-",newValue)
+      console.log("$watch-info",oldValue)
+    })
+
+    /**
+     *   当计算属性和监听属性都能实现
+     *   计算属性能完成的 watch都可以完成
+     *   watch能完成的，计算属性不一定能完成
+     *
+     *   所有被Vue管理的函数都写成普通函数，这样this指向的是Vue
+     *   不被Vue管理的函数 写成箭头函数，指向的是windows
+     *
+     *
+     *
+     *
+     * */
+
+
+</script>

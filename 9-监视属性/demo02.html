@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>监视属性</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+  你是{{info}}
+  <br>
+  <button @click="change">切换</button>
+
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+  // 阻止vue在启动时提示生产错误
+  Vue.config.productionTip = false;
+  /**
+   * 监视属性
+   * 当监视属性变化是，回调函数自动执行，
+   * 监视的属性必须存在，才能进行监视
+   *
+   *
+   * */
+
+  const  vm  = new Vue({
+    el:'#app',
+    data:{
+      isSex:true
+    },
+    methods:{
+      change(){
+        this.isSex = !this.isSex;
+      }
+    },
+    computed:{
+      info(){
+        return this.isSex ? '男':'女'
+      }
+    },
+    // 第一种写法
+    watch:{
+      isSex:{
+        //当isSex发生改变时调用
+        immediate:true,   //一开始就执行handler
+        handler(newValue,oldValue){
+          console.log("newValue",newValue)
+          console.log("oldValue",oldValue)
+        }
+      },
+      info:{
+        //当isSex发生改变时调用
+        immediate:true,   //一开始就执行handler
+        handler(newValue,oldValue){
+          console.log("newValue",newValue)
+          console.log("oldValue",oldValue)
+        }
+      }
+    }
+
+  })
+
+
+  // 第二种写法
+  vm.$watch('info',{
+    //当isSex发生改变时调用
+    immediate:true,   //一开始就执行handler
+    handler(newValue,oldValue){
+      console.log("info",newValue)
+      console.log("info",oldValue)
+    }
+  })
+
+
+</script>

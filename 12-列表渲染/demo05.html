@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>列表排序</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<style>
+</style>
+<body>
+
+<div id="app">
+
+    <div>
+        <h2>of 遍历数组-排序</h2>
+        <input type="text" placeholder="输入名字查询" v-model="searchName">
+        <button @click="sortType = 2">年龄升序</button>
+        <button @click="sortType = 1">年龄降序</button>
+        <button @click="sortType = 0">原顺序</button>
+        <ul>
+            <li v-for="(item,index) of filterPersons" :key="item.id">
+                {{item.id}}-{{item.name}}-{{item.age}}-{{item.sex}}-{{index}}
+            </li>
+        </ul>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+    Vue.config.productionTip = false;
+
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            persons: [
+                {id: 1, 'name': '张三', age: 18, sex: '男'},
+                {id: 2, 'name': '李四', age: 25, sex: '男'},
+                {id: 3, 'name': '田七', age: 20, sex: '男'},
+                {id: 4, 'name': '张五', age: 17, sex: '女'}
+            ],
+            searchName: '',
+            sortType:0
+        },
+        computed:{
+            filterPersons(){
+               const arr = this.persons.filter((person)=>{
+                    return person.name.indexOf(this.searchName) !== -1
+                })
+                if(this.sortType){
+                    arr.sort((var1,var2)=>{
+                        return this.sortType === 1 ?var2.age-var1.age: var1.age - var2.age
+                    })
+                }
+                return arr;
+            }
+        },
+
+    })
+
+</script>

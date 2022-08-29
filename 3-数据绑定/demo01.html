@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+  单向数据绑定(v-bind)：<input type="text" v-bind:value="name"/><br/>
+  双向绑定(v-model)：<input type="text" v-model:value="name"/>
+  双向绑定(v-model)：<input type="text" v-model="name"/>
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+  // 阻止vue在启动时提示生产错误
+  Vue.config.productionTip = false;
+  /**
+   * 数据绑定
+   *  单向数据绑定:v-bind
+   *   数据只能从data流向页面
+   *
+   * 双向绑定:v-model
+   *  数据既可以从data流向页面。也可以从页面流向data
+   *  双向绑定一般用在表单类元素上
+   *
+   *
+   * */
+
+  /**
+   * 创建vue
+   * */
+  new Vue({
+    // 用于指定当前实例为哪个容器，值通常为css的id选择器
+    el:"#app" ,
+    data:{
+      name:"张三"
+
+    }
+
+  })
+
+</script>

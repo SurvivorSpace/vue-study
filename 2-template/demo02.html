@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+  <h1>插值语法</h1>
+  <h2>你好：{{name}}</h2>
+  <h2>你好：{{user.name}}</h2>
+  <h1>指令语法</h1>
+  <a v-bind:href="url">百度-v-bin</a><br/>
+  <a :href="url">百度- :</a>
+
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+  // 组织 vue在启动时提示生产错误
+  Vue.config.productionTip = false;
+  /**
+   * 模板语法两大类
+   * 1.插值语法：
+   *  功能：解析标签体内的内容
+   *  写法： {{xxx}} xxx是js表达式或js代码，可以直接读取到data中的数据
+   * 2.指令语法：
+   *   功能： 解析标签（属性，标签体内容，绑定事件）
+   *   举例：v-bind:href="xxx" 简写 :href=”xxx“   xxx是js表达式
+   *
+   * */
+
+  /**
+   * 创建vue
+   * */
+  new Vue({
+    // 用于指定当前实例为哪个容器，值通常为css的id选择器
+    el:"#app" ,
+    data:{
+      name:"张三",
+      url:'http://www.baidu.com',
+      user:{
+        name:"李四"
+      }
+    }
+
+  })
+
+</script>

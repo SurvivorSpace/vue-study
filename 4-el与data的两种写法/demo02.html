@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+ <h1>hello {{name}}</h1>
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+  // 阻止vue在启动时提示生产错误
+  Vue.config.productionTip = false;
+
+  /**
+   * el 和 data的写法
+   * el写法
+   *   1.new Vue({})参数
+   *   2.先创建Vue实例，在通过app.$mount('#app') 实现
+   * data写法:
+   *   1.对象式 data{}
+   *   2.方法式 data:function(){} /data(){}
+   *
+   * 由Vue管理的函数，不能写箭头函数( ()=>{} )  不然this就不是Vue对象了
+   *
+   *
+   * */
+
+  /**
+   * 创建vue
+   * */
+  const  app  = new Vue({
+    // el的第一种写法
+    //el:"#app" ,
+
+    // data 第一中写法
+    // data:{
+    //   name:"张三"
+    //
+    // },
+    //data 第二中写法  用组件时必须用这个写法
+    // data:()=>{  不能这样写 这样写 this就是全局的对象（windows）
+    // data(){   可以这样写
+    data:function (){
+      console.log('@@@@',this)
+      return{
+        name:"张三"
+      }
+    }
+
+  })
+  console.log(app)
+  // el的第二种写法
+  app.$mount('#app')
+
+</script>

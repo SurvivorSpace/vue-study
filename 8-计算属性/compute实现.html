@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>计算属性</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+  姓：<input type="text" v-model="name"><br/>
+  名：<input type="text" v-model="ming"><br/>
+  <!-- 截取name的0-5 不包含五 -->
+  连起来：{{fullName}}
+
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+  // 阻止vue在启动时提示生产错误
+  Vue.config.productionTip = false;
+  /**
+   * 计算属性
+   * 定义：要用的属性不存在，得通过已有的属性来计算得来
+   * 原来 底层借助了Object.defineProperty方法提供的getter setter来实现
+   *
+   * 计算属性最终会出现在vm上 ，可以直接用
+   *
+   * */
+
+  const  vm  = new Vue({
+    el:'#app',
+    data:{
+      name:'' ,
+      ming:''
+    },
+    methods:{
+    },
+    computed:{
+      fullName:{
+        // 1. 初次读取时被调用
+        //3. 所依赖的值发生改变时，被调用
+        get(){
+          return this.name + "-" + this.ming;
+        },
+        set(value){
+          this.name = value;
+        }
+      }
+    }
+  })
+
+
+
+</script>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>监视属性</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+  你是{{info}}
+  <br>
+  <button @click="change">切换</button>
+  <hr/>
+  <h3>a的值：{{num.a}}</h3>
+  <button @click="add">点击a增加</button>
+  <hr/>
+  <h3>b的值：{{num.b}}</h3>
+  <button @click="num.b++">点击a增加</button>
+
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+  // 阻止vue在启动时提示生产错误
+  Vue.config.productionTip = false;
+  /**
+   * 深度监视
+   * Vue中的watch默认不监测对象内部的值的改变
+   * 配置deep:true可以实现监测对象内部值的改变
+   *
+   *
+   *
+   * */
+
+  const  vm  = new Vue({
+    el:'#app',
+    data:{
+      isSex:true,
+      num:{a:1,b:1}
+    },
+    methods:{
+      change(){
+        this.isSex = !this.isSex;
+      },
+      add(){
+        this.num.a++;
+      }
+    },
+    computed:{
+      info(){
+        return this.isSex ? '男':'女'
+      }
+    },
+    // 第一种写法
+    watch:{
+      isSex:{
+        handler(newValue,oldValue){
+          console.log("newValue",newValue)
+          console.log("oldValue",oldValue)
+        }
+      },
+      // 监视多级结构中的属性值变化
+      // 'num.a':{
+      //   handler(newValue, oldValue) {
+      //     console.log(this.num.a)
+      //   }
+      // },
+      //监视多级中所有属性的变化
+      num:{
+        deep:true,
+        handler(newValue, oldValue) {
+          console.log(this.num)
+        }
+      }
+
+    }
+
+  })
+
+
+
+
+</script>

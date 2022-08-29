@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>v-for</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<style>
+</style>
+<body>
+
+<div id="app">
+
+  <div>
+    <h2>in</h2>
+    <!-- 遍历数组 -->
+    <ul>
+      <!--<li v-for="(item,index) in persons" :key="index">-->
+      <li v-for="(item,index) in persons" :key="item">
+        {{item.id}}-{{item.name}}-{{item.age}}-{{item.sex}}-{{index}}
+      </li>
+    </ul>
+
+    <h2>of</h2>
+    <ul>
+      <!--<li v-for="(item,index) in persons" :key="index">-->
+      <li v-for="(item,index) of persons" :key="item">
+        {{item.id}}-{{item.name}}-{{item.age}}-{{item.sex}}-{{index}}
+      </li>
+    </ul>
+
+    <h2>obj</h2>
+    <!-- 遍历对象 -->
+    <ul>
+      <li v-for="(value,key) in car" :key="key">
+        {{value}}-{{key}}
+      </li>
+    </ul>
+
+    <h2>str</h2>
+    <!-- 遍历字符串 -->
+    <ul>
+      <li v-for="(value,index) in str" :key="item">
+        {{value}}-{{index}}
+      </li>
+    </ul>
+  </div>
+
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+  Vue.config.productionTip = false;
+
+  const vm = new Vue({
+    el: '#app',
+    data: {
+      persons:[
+        {id:1,'name':'张三',age:18,sex:'男'},
+        {id:2,'name':'李四',age:19,sex:'男'},
+        {id:3,'name':'田七',age:20,sex:'男'}
+      ],
+      car:{
+        name:"道奇",
+        color:'red'
+      },
+      str:'helloworld'
+    }
+  })
+
+</script>

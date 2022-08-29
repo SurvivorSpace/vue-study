@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<style>
+  *{
+    margin-top: 20px;
+  }
+  .demo01 {
+    background-color: greenyellow;
+    height: 100px;
+  }
+  .list{
+    width: 200px;
+    height: 300px;
+    background-color: aqua;
+    overflow: auto;  /*滚动条*/
+  }
+
+  li{
+    height: 150px;
+
+  }
+</style>
+<body>
+
+<!-- View -->
+<div id="app">
+  <h1>{{name}}</h1>
+  <input type="text" placeholder="按下回车提交" @keyup.enter="showInfo(info)" v-model="info">
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+  // 阻止vue在启动时提示生产错误
+  Vue.config.productionTip = false;
+  //定义回车是13键码
+  Vue.config.keyCodes.huiche = 13
+
+  /**
+   * 键盘事件
+   * 按键别名
+   * 回车 enter
+   * 删除 delete
+   * 退出 esc
+   * 空格 space
+   * 换行 tab  和keydown配和使用
+   * 上 up
+   * 下 down
+   * 左 left
+   * 右 right
+   *
+   *   Vue未提供的别名按键，可以使用原始key值去绑定，但注意要转为kebab-case 短线小写名称
+   *
+   *   修通修饰键 ctrl alt shift meta(win键) 需要配合keydown使用
+   *
+   *
+   *   Vue.config.keyCodes.自定义键名 = 键码，可以自定义按键别名
+   * */
+
+  /**
+   * 创建vue   ViewModel
+   * */
+  const  vm  = new Vue({
+    el:'#app',
+    data:function (){  // Model
+      return{
+        name:"键盘事件",
+        info:''
+      }
+    },
+    methods:{
+      showInfo(value){
+        alert(value)
+      }
+    }
+  })
+
+
+
+</script>

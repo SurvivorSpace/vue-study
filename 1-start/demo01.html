@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue-01</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<!-- 容器 -->
+<div id = "root">
+    <h1>hello-world,{{name}}</h1>
+    <h1>hello-world,{{age}}</h1>
+    <h1>hello-world,{{info}}</h1>
+    <h1>hello-world,{{Date.now()}}</h1>
+    <h1>{{nick_name}} --->{{nick_name.toUpperCase()}}</h1>
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+    // 组织 vue在启动时提示生产错误
+    Vue.config.productionTip = false;
+    /**
+     * 1.创Vue实例，参数是一个配置对象
+     * 2.root容器里的代码依然符合html规范,只不过混入了一些Vue语法
+     * 3.root容器里的代码被称为Vue模板
+     *
+     * 容器 和实例 一对一
+     *
+     *  `{{}}` 里必须是 js表达式 或者 js代码
+     * */
+
+    /**
+     * 创建vue
+     * */
+    new Vue({
+        // 用于指定当前实例为哪个容器，值通常为css的id选择器
+        el:"#root" ,
+        data:{
+            name:"张三",
+            age:20,
+            info:'插值语法',
+            nick_name:'aaabbbb'
+        }
+
+    })
+
+</script>

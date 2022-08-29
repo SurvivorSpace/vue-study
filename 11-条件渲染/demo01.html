@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>绑定样式-style</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<style>
+  .base{
+    background-color: red;
+    width: 200px;
+    height: 100px;
+  }
+  .base2{
+    background-color: darkgrey;
+    width: 200px;
+    height: 100px;
+  }
+
+  .change{
+    background-color: aqua;
+
+  }
+
+  .change2{
+    background-color: chocolate;
+
+  }
+
+</style>
+<body>
+
+<div id="app">
+  <h2 v-show="isShow">你好：{{name2}}</h2>
+  <h2 v-show="!isShow">你好：{{name}}</h2>
+  <button @click="changeShow">点击变换</button>
+
+
+  <h2 v-if="isShow">你好：{{name2}}</h2>
+  <h2 v-else-if="!isShow">你好：{{name}}</h2>
+  <h2 v-else>你好：{{name}}</h2>
+  <button @click="changeShow">点击变换</button>
+
+
+
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+  Vue.config.productionTip = false;
+
+  const vm = new Vue({
+    el: '#app',
+    data: {
+      name:'张三',
+      name2:'李四',
+      isShow:true
+    },
+    methods: {
+      changeShow(){
+        this.isShow = !this.isShow;
+      }
+    }
+  })
+
+
+  /**
+   *   绑定样式
+   *
+   *   v-show
+   *   不展示的dom元素没有被移除，只是修改了样式
+   *
+   *   v-if
+   *    不展示的dom元素直接被移除
+
+   * */
+
+
+</script>

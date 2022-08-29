@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<!-- View -->
+<div id="app">
+  <h1>hello {{name}}</h1>
+
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+  // 阻止vue在启动时提示生产错误
+  Vue.config.productionTip = false;
+
+  /**
+   * MVVM
+   * M （Model）：模型  对应data数据
+   * V(View)： 模板   DOM html
+   * VM：(ViewModel)  Vue实例对象
+   *
+   * */
+
+  /**
+   * 创建vue   ViewModel
+   * */
+  const  vm  = new Vue({
+    el:'#app',
+    data:function (){  // Model
+      return{
+        name:"张三"
+      }
+    }
+  })
+
+
+  console.log(vm)
+
+
+</script>

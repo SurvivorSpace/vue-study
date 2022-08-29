@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<style>
+  *{
+    margin-top: 20px;
+  }
+  .demo01 {
+    background-color: greenyellow;
+    height: 100px;
+  }
+  .list{
+    width: 200px;
+    height: 300px;
+    background-color: aqua;
+    overflow: auto;  /*滚动条*/
+  }
+
+  li{
+    height: 150px;
+
+  }
+</style>
+<body>
+
+<!-- View -->
+<div id="app">
+  <h1>hello {{name}}</h1>
+  <button v-on:click="alertFunc">点我提示</button><br/>
+  <button @click="alertFunc2(66,$event)">点我提示</button><br/>
+  <a href="http://www.baidu.com" @click="alertFunc2(66,$event)">点击跳转百度</a><br/>
+  <!-- 阻止跳转事件  写法二 -->
+  <a href="http://www.baidu.com" @click.prevent="alertFunc2(66,$event)">点击跳转百度- 阻止跳转</a><br/>
+
+  <a href="http://www.baidu.com" @click.passive="alertFunc2(66,$event)">点击跳转百度- 直接跳转</a><br/>
+
+  <!--  阻止事件冒泡 -->
+  <div @click="alertFunc" class="demo01">
+    <button @click.stop="alertFunc">点击按钮</button><br/>
+      <!-- 修饰符可以连续写 -->
+    <a href="http://www.baidu.com"  @click.stop.prevent="alertFunc">阻止冒泡，阻止默认事件</a><br/>
+  </div>
+
+  <!-- 事件只触发一次 -->
+  <button @click.once="alertFunc">事件只触发一次</button><br/>
+
+  <!-- 事件默认行为立即执行 -->
+  <!-- <ul @scroll="demo" class="list">   滚动条开始滚动  -->
+  <ul @wheel.passive="demo" class="list">  <!-- 鼠标滚动 -->
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+  </ul>
+
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+  // 阻止vue在启动时提示生产错误
+  Vue.config.productionTip = false;
+
+  /**
+   * 事件修饰符
+   * 1.prevent 阻止默认事件
+   * 2.stop 阻止事件冒泡
+   * 3.once 事件只触发一次
+   * 4.capture: 使用事件的捕获模式
+   * 5.self 只有event.target 是当前操作的元素时才触发事件
+   * 6.passive 事件的默认行为立即执行，无需等待事件回调执行完毕
+   *
+   *
+   * */
+
+  /**
+   * 创建vue   ViewModel
+   * */
+  const  vm  = new Vue({
+    el:'#app',
+    data:function (){  // Model
+      return{
+        name:"张三"
+      }
+    },
+    methods:{
+      alertFunc(){
+        alert("你好")
+      },
+      alertFunc2(value,event){
+        alert(event)
+        alert(value)
+        // 阻止跳转事件  写法一
+        //event.preventDefault()
+      },
+      demo(){
+        alert('开始滚动')
+        for (let i = 0; i < 1000000; i++) {
+          console.log('wo cao ')
+        }
+        console.log('输出完了，该执行动画实际滚动了')
+      }
+    }
+  })
+
+
+
+</script>
