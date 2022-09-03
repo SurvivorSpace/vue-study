@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue.set</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<style>
+</style>
+<body>
+
+<div id="app">
+    <h2>Vue监测数据的原理-数组</h2>
+    <button @click="addSex">点击添加一个性别属性</button>
+    <h3>姓名：{{student.name}}</h3>
+    <h3>地址：{{student.age}}</h3>
+    <h3 v-if="student.sex">性别：{{student.sex}}</h3>
+
+    <h4>爱好</h4>
+    <ul>
+        <li v-for="(h,index) in hobby" :key="index">
+            {{h}}
+        </li>
+    </ul>
+
+
+    <h4>人</h4>
+    <ul>
+        <li v-for="(p,index) in persons" :key="index">
+            {{p.name}}-- {{p.age}}
+        </li>
+    </ul>
+
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+
+    Vue.config.productionTip = false;
+
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            name:"张三", // 数据代理   data = _data
+            addr:"上海",
+            student:{
+                name:"李四",
+                age:'20'
+            },
+            hobby:['唱','跳','rap','篮球'],
+            persons:[
+                {name:'张三',age:18},
+                {name:'王五',age:20},
+                {name:'李四',age:19}
+            ]
+
+
+        },
+        methods:{
+            addSex(){
+               // Vue.set(this.student,'sex','男')
+                this.$set(this.student,'sex','男')
+            }
+        }
+
+    })
+
+
+</script>

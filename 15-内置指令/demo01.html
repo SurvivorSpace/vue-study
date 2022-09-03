@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>内置指令 v-text</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+{{name}}
+<div v-text="name"></div>
+</div>
+
+</body>
+</html>
+<script>
+  /**
+   * 内置指令
+   * v-bind: 单向绑定解析表达式
+   * v-model :双向数据绑定
+   * v-for: 遍历数组、对象，字符串
+   * v-on: 绑定事件
+   * v-if: 条件渲染
+   * v-else: 条件渲染
+   * v-show: 条件渲染
+   * v-text : 插入文本
+   *
+   *
+   * */
+  Vue.config.productionTip = false;
+  const vm = new Vue({
+    el: '#app',
+    data: {
+      name:'张三'
+    }
+  })
+</script>

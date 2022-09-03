@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>过滤器</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <script type="text/javascript"  src="https://cdn.bootcdn.net/ajax/libs/dayjs/1.11.5/dayjs.min.js"></script>
+
+</head>
+<body>
+
+<div id="app">
+ <h1>显示格式化的时间</h1>
+  <!-- 计算属性实现 -->
+  <label>now：{{fmtTime}}</label>
+  <br/><br/>
+  <!-- 方法实现 -->
+  <label>now：{{getFmtTime()}}</label>
+  <br/><br/>
+  <!-- 过滤器实现 -->
+  <label>now：{{date | time_fmt}}</label>
+  <br/><br/>
+  <!-- 过滤器传参 -->
+  <label>now：{{date | time_fmt2('YYYY-MM-DD')}}</label>
+  <br/><br/>
+  <label>now：{{date | time_fmt2}}</label>
+  <br/><br/>
+  <!-- 多个过滤器一次执行 ，下一个过滤器的参数就是上一个过滤器的返回值 -->
+  <label>now：{{date | time_fmt2('YYYY-MM-DD') | mySlice}}</label>
+
+
+  <h3 :x="msg | mySlice">世界</h3>
+
+</div>
+
+<div id="app2">
+  {{name | mySlice}}
+</div>
+</body>
+</html>
+<script type="text/javascript">
+  Vue.config.productionTip = false;
+
+  /**
+   * 全局过滤器  需要写在创建Vue对象前面
+   * */
+  Vue.filter('mySlice',function (value) {
+    return value.slice(0,4)
+  })
+
+  const vm = new Vue({
+    el: '#app',
+    data: {
+      date:Date.now(),
+      msg:'你好，世界'
+    },
+    computed:{
+      fmtTime(){
+        return dayjs(this.time).format('YYYY-MM-DD HH:ss:mm')
+      }
+    },
+    methods:{
+      getFmtTime(){
+        return dayjs(this.time).format('YYYY-MM-DD HH:ss:mm');
+      }
+    },
+    filters:{
+      /**
+       * 局部过滤器
+       * */
+      time_fmt(val){
+        return dayjs(val).format('YYYY-MM-DD HH:ss:mm');
+      },
+      time_fmt2(val,str='YYYY-MM-DD HH:ss:mm'){
+        return dayjs(val).format(str);
+      },
+      mySlice(value){
+        return value.slice(0,4)
+      }
+    }
+
+  })
+
+
+
+  const vm2 = new Vue({
+    el: '#app2',
+    data: {
+      name:'fgajkugbkjhqf'
+    }
+  })
+
+
+  /**
+   * 过滤器
+   *  对要显示的数据进行特定格式化后在显示（适用一些简单的逻辑处理）
+   *  语法：
+   *    1.注册过滤器 Vue.filter(name,callback) 或 new Vue((filters:{}))
+   *    2.使用过滤器 {{xxx | 过滤器名}}  或 v-bind:属性 = 'xxx | 过滤器名'
+   *  注意：
+   *  1.过滤器也可以接受额外的参数，多个过滤器可以串联
+   *  2.并没有改变原来的数据，时产生新的对应数据
+   *
+   * */
+</script>

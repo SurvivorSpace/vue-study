@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义指令</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+
+<span v-text="n"></span>
+    <br/>
+    <br/>
+<span v-big="n"></span>
+<span v-big-haha="n"></span>
+    <br/>
+    <br/>
+    <button @click="n++">点击n++</button>
+    <hr/>
+    <input type="text" v-bind:value="n">
+    <input type="text" v-fbind:value="n">
+</div>
+</body>
+</html>
+<script>
+    /**
+     * 自定义指令
+     *   定义语法
+     *   (1.)局部指令
+     *   new Vue({
+     *       directives:{
+     *           指令名:{配置对象}
+     *       }
+     *       或
+     *       directives(指令名，回调函数){}
+     *   })
+     *   (2)全局指令
+     *   Vue.directive(指令name,配置对象)
+     *    Vue.directive(指令name,回调函数)
+     *
+     * 配置对象中常用的3个回调
+     * (1) bind        指令与元素成功绑定时被调用
+     * (2) inserted    指令所在元素被插入页面时被调用
+     * (3) update      指令所在的模板被重新解析时被调用
+     *
+     * 指定定义时 不加 v- 使用时需要加 v-
+     * 指令如果是多个单词 ，中间要用-连接
+     *
+     * */
+    Vue.config.productionTip = false;
+    //全局指令
+    Vue.directive = ('big',{
+        fbind:{
+            bind(element,binding){
+                console.log("指令与元素成功绑定时")
+            },
+            inserted(element,binding){
+                console.log("指令所在元素被插入页面时")
+                element.focus()
+            },
+            update(element,binding){
+                element.value = binding.value
+                console.log("指令所在的模板被重新解析时")
+                element.focus()
+            }
+        }
+    })
+    //全局指令
+    Vue.directive = ('big',function (element,binding){
+        console.log('big')
+        console.log(element)
+        console.log(binding)
+        element.innerText = binding.value * 10
+    })
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            n:1
+        },
+        directives:{
+            /**
+             * big函数调用
+             * 1.指令与元素成功绑定时 (初次时)
+             * 2.指令所在的模板被重新解析时
+             * */
+           big(element,binding){
+               console.log('big')
+               console.log(element)
+               console.log(binding)
+               element.innerText = binding.value * 10
+
+           },
+            /**
+             * fbind函数调用
+             * 1.指令与元素成功绑定时 (初次时)
+             * 2.指令所在的模板被重新解析时
+             * */
+            // fbind(element,binding){
+            //    //获取焦点
+            //     element.value = binding.value
+            //     element.focus()
+            // },
+            /**
+             * 函数写法
+             * */
+            fbind:{
+                bind(element,binding){
+                    console.log("指令与元素成功绑定时")
+                },
+                inserted(element,binding){
+                    console.log("指令所在元素被插入页面时")
+                    element.focus()
+                },
+                update(element,binding){
+                    element.value = binding.value
+                    console.log("指令所在的模板被重新解析时")
+                    element.focus()
+                }
+            },
+            'big-haha'(element,binding){
+                console.log('big')
+                console.log(element)
+                console.log(binding)
+                element.innerText = binding.value * 10
+
+            }
+        }
+    })
+
+
+</script>

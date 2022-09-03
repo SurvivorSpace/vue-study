@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue.set</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<style>
+</style>
+<body>
+
+<div id="app">
+    <h2>Vue监测数据的原理</h2>
+    <button @click="addSex">点击添加一个性别属性</button>
+    <h3>姓名：{{student.name}}</h3>
+    <h3>地址：{{student.age}}</h3>
+    <h3 v-if="student.sex">性别：{{student.sex}}</h3>
+
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+
+    Vue.config.productionTip = false;
+
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            name:"张三", // 数据代理   data = _data
+            addr:"上海",
+            student:{
+                name:"李四",
+                age:'20'
+            }
+        },
+        methods:{
+            addSex(){
+               // Vue.set(this.student,'sex','男')
+                this.$set(this.student,'sex','男')
+            }
+        }
+
+    })
+
+
+</script>

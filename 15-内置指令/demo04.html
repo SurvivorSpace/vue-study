@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>内置指令 v-once</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+<div id="app">
+   <button @click="n++">点击N+1</button>
+    <h1 v-cloak>{{n}}</h1>
+    <h1 v-once>初始化值{{n}}</h1>
+</div>
+
+</body>
+</html>
+<script>
+  /**
+   * 内置指令
+   * v-bind: 单向绑定解析表达式
+   * v-model :双向数据绑定
+   * v-for: 遍历数组、对象，字符串
+   * v-on: 绑定事件
+   * v-if: 条件渲染
+   * v-else: 条件渲染
+   * v-show: 条件渲染
+   * v-text : 插入文本  
+   * v-html ：可以样式
+   * v-cloak: 特殊的属性  Vue实例创建完毕并接管容器，会删掉该属性，配合css使用，解决网速慢时 页面展示{{name}}问题
+   * v-once: 在初次所渲染后，就视为静态内容了  以后的数据改变不会引起v-once所在的结构更新，可以用以优化性能
+   *
+   * */
+  Vue.config.productionTip = false;
+  const vm = new Vue({
+    el: '#app',
+    data: {
+      name:'张三',
+      str:"<h3>哈哈哈</h3>",
+      n:1
+    }
+  })
+
+  /**
+   *
+   * v-cloak
+   * 可以识别html结构
+   *
+   *
+   * 在网站上任意渲染html是非常危险的，容易导致 xss攻击
+   * 一定要在可信任的内容上使用v-html 不要在用户提交的内容上
+   * */
+</script>

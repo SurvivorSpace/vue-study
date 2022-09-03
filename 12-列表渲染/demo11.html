@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue.set</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<style>
+</style>
+<body>
+
+<div id="app">
+    <h2>Vue监测数据的原理-数组</h2>
+    <button @click="student.age++">点击年龄加1</button>
+    <button @click="addSex">点击添加一个性别属性</button>
+    <button @click="student.sex = '女'">点击修改性别</button>
+    <button @click="addFirst">在列表首位添加一个人</button>
+    <button @click="updateFirst">修改列表首位一个人</button>
+    <button @click="updateHobby">修改一个爱好为开车</button>
+
+
+    <h3>姓名：{{student.name}}</h3>
+    <h3>地址：{{student.age}}</h3>
+    <h3 v-if="student.sex">性别：{{student.sex}}</h3>
+
+    <h4>爱好</h4>
+    <ul>
+        <li v-for="(h,index) in hobby" :key="index">
+            {{h}}
+        </li>
+    </ul>
+
+
+    <h4>人</h4>
+    <ul>
+        <li v-for="(p,index) in persons" :key="index">
+            {{p.name}}-- {{p.age}}
+        </li>
+    </ul>
+
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+
+    Vue.config.productionTip = false;
+
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            name:"张三", // 数据代理   data = _data
+            addr:"上海",
+            student:{
+                name:"李四",
+                age:'20'
+            },
+            hobby:['唱','跳','rap','篮球'],
+            persons:[
+                {name:'张三',age:18},
+                {name:'王五',age:20},
+                {name:'李四',age:19}
+            ]
+
+
+        },
+        methods:{
+            addSex(){
+                /**
+                 * 两种写法
+                 * */
+               // Vue.set(this.student,'sex','男')
+                this.$set(this.student,'sex','男')
+            },
+            addFirst(){
+                this.persons.unshift({name:'哈哈',age:80})
+            },
+            updateFirst(){
+                this.persons[0].name = "zzzz";
+            },
+            updateHobby(){
+                /**
+                 * 三种写法
+                 * */
+                this.hobby.splice(0,1,'开车');
+                Vue.set(this.hobby,0,'开车');
+                this.$set(this.hobby,0,'开车');
+            }
+        }
+
+    })
+
+    /**
+     * 总结：
+     * Vue监视数据的原理
+     * 1.Vue会监视data中所有层的数据
+     *
+     * 2.如何监测对象
+     *  通过setter 实现监测，且要在new Vue时就传入要监测的数据
+     *   （1）.对象中后加入的属性，Vue默认不做响应式处理
+     *   （2）.如需给后添加的属性做响应式，需要使用Vue的api
+     *        Vue.set(target,propertyName/index,value)
+     *        this.$set(target,propertyName/index,value)
+     *
+     * 3. 如何监测数组中的数据
+     *  通过包裹数组更新元素的方法实现，本质就是做了两件事
+     *   （1）.调用原生对应的方法对数组进行更新
+     *   （2）.重新解析模板，进行页面更新
+     *
+     * 4.在Vue修改数组中的某一个元素要用如下方法
+     *  1.使用 push() pop() shift() unshift() splice() sort() reverse()
+     *  2.Vue.set() 或 vm.$set() (在Vue对象中的 this.$set())
+     *
+     *  注意 Vue.set() 和 this.$set() 不能给vm或vm的跟对象添加属性
+     *
+     *
+     *
+     * 数据劫持
+     * 数据被修改了
+     *
+     *
+     *
+     *
+     * */
+
+
+</script>

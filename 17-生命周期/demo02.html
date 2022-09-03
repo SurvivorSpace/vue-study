@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>生命周期</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <div>
+        <h2>当前的n值：{{n}}</h2>
+        <button @click="add">点击加1</button>  会直接替换id为app的div
+    </div>
+</div>
+
+</body>
+</html>
+<script>
+
+  /**
+   * 生命周期
+   * 将要创建  ====> 调用beforeCreate
+   * 创建完毕  ====> 调用 created
+   * 将要挂载  ====> 调用 beforeMount
+   * 挂载完毕  ====> 调用 mounted
+   * 将要更新  ====> 调用 beforeUpdate
+   * 更新完毕  ====> 调用 updated
+   * 将要销毁  ====> 调用 beforeDestroy
+   * 销毁完毕  ====> 调用 destroyed
+   *
+   *
+   *
+   * */
+
+  const vm = new Vue({
+    el: '#app',
+    template:`
+        <div>
+            <h2>当前的n值：{{n}}</h2>
+            <button @click="add">点击加1</button>  会直接替换id为app的div
+            <button @click="bye">bye</button>
+        </div>
+    ` ,
+    data: {
+      opacity:1,
+      n:1
+    },
+    methods:{
+        add(){
+            this.n++;
+        },
+        bye(){
+            console.log("销毁Vue对象")
+            //解绑所有指令及自定义事件监听器
+            this.$destroy();
+        }
+
+    },
+    beforeCreate(){
+        console.log('初始化')
+    },
+    created(){
+        console.log('开始数据监测，数据代理')
+    },
+    beforeMount(){
+        console.log('挂载前')
+    },
+    mounted(){
+        console.log('挂载后,初始化结束')
+    },
+    beforeUpdate(){
+        console.log('更新前')
+    },
+    updated(){
+        console.log('更新后')
+    },
+    beforeDestroy(){
+        console.log('销毁前')
+    },
+    destroyed(){
+        console.log('销毁后')
+    }
+  })
+
+
+
+</script>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>生命周期</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <h2 :style="{opacity}">你好，世界</h2>
+    <button @click="stop">停止变换</button>
+</div>
+
+</body>
+</html>
+<script>
+
+    /**
+     * 生命周期
+     * 只生命周期回调函数，生命周期函数，生命周期钩子
+     * Vue在关键时刻调用的函数
+     * 生命周期函数不可以更改 单函数具体是需要编写的
+     * 生命周期函数中的this是指向vm 或组件实例
+     *
+     *
+     * */
+
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            opacity: 1
+        },
+        methods: {
+            stop() {
+                console.log(this.timer)
+                // clearInterval(this.timer)
+                // 另一种写法
+                // this.$destroy()  比较暴力 直接杀死Vue实例
+
+            }
+        },
+        // Vue完成模板解析并把真实DOM元素放入(挂载完毕)页面，调用mounted
+        mounted() {
+            this.timer = setInterval(() => {
+                this.opacity -= 0.01
+                if (this.opacity <= 0) {
+                    this.opacity = 1
+                }
+            }, 12)
+        },
+        beforeDestroy() {
+            console.log('销毁前,关闭定时器')
+            clearInterval(this.timer)
+        }
+    })
+
+
+</script>
